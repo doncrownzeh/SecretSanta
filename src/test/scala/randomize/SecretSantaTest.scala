@@ -35,7 +35,7 @@ class SecretSantaTest extends FeatureSpec with GivenWhenThen with BeforeAndAfter
       for (1 <- 1 to 100000) {
         When("Randomizing secret santa")
         val randomizedParticipants = SecretSanta.randomizeParticipants(participants)
-        Then("each of participants is randomized exactly once as giver")
+        Then("each of participants is randomized exactly once as receiver")
         val receivers = randomizedParticipants.map(randomized => randomized._2)
         assert(receivers.size == receivers.distinct.size)
       }

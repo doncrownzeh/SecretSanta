@@ -1,4 +1,4 @@
-package mail.preparation
+package mail
 
 import javax.mail.internet.MimeMessage
 import javax.mail.{Message, Session, Transport}

@@ -1,6 +1,7 @@
-package mail.send
+package mail
 
 import java.util.Properties
+
 import javax.mail.{Authenticator, PasswordAuthentication}
 
 object GmailProperties {

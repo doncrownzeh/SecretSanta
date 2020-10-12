@@ -1,6 +1,5 @@
 import javax.mail.Session
-import mail.preparation.ComposedMail
-import mail.send.GmailProperties
+import mail.{ComposedMail, GmailProperties}
 import randomize.{Participant, SecretSanta}
 
 object Main extends App {
