@@ -16,7 +16,7 @@ class ComposedMail(giver: Participant, receiver: Participant) {
 
   def send(session: Session): Unit = {
    val message = new MimeMessage(session)
-    message.setRecipients(Message.RecipientType.TO, receiver.emailAddress)
+    message.setRecipients(Message.RecipientType.TO, giver.emailAddress)
     message.setSubject(header)
     message.setText(body)
     Transport.send(message)
