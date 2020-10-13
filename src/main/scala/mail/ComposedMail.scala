@@ -2,21 +2,21 @@ package mail
 
 import javax.mail.internet.MimeMessage
 import javax.mail.{Message, Session, Transport}
-import randomize.Participant
+import randomize.ParticipantsPairing
 
-class ComposedMail(giver: Participant, receiver: Participant) {
+class ComposedMail(pairing: ParticipantsPairing) {
 
   private val header = s"Secret Santa draw"
   private val body =
     s"""
-       |Hi, ${giver.name}!
+       |Hi, ${pairing.giver.name}!
        |
-       |You will buy a gift for ${receiver.name}!
+       |You will buy a gift for ${pairing.receiver.name}!
     """.stripMargin
 
   def send(session: Session): Unit = {
    val message = new MimeMessage(session)
-    message.setRecipients(Message.RecipientType.TO, giver.emailAddress)
+    message.setRecipients(Message.RecipientType.TO, pairing.giver.emailAddress)
     message.setSubject(header)
     message.setText(body)
     Transport.send(message)
@@ -24,7 +24,7 @@ class ComposedMail(giver: Participant, receiver: Participant) {
 }
 
 object ComposedMail {
-  def apply(giver: Participant, receiver: Participant): ComposedMail = {
-    new ComposedMail(giver, receiver)
+  def apply(pairing: ParticipantsPairing): ComposedMail = {
+    new ComposedMail(pairing)
   }
 }

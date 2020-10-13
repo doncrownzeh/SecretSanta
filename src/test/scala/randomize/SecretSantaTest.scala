@@ -1,8 +1,8 @@
 package randomize
 
-import org.scalatest.{BeforeAndAfter, GivenWhenThen, FeatureSpec}
+import org.scalatest.{FeatureSpec, GivenWhenThen}
 
-class SecretSantaTest extends FeatureSpec with GivenWhenThen with BeforeAndAfter {
+class SecretSantaTest extends FeatureSpec with GivenWhenThen {
 
   feature("Randomizing participants for secret santa") {
 
@@ -11,9 +11,9 @@ class SecretSantaTest extends FeatureSpec with GivenWhenThen with BeforeAndAfter
       val participants = List(Participant("K", "K"), Participant("G", "G"), Participant("A", "A"), Participant("F", "F"))
       for (1 <- 1 to 100000) {
         When("Randomizing secret santa")
-        val randomizedParticipants = SecretSanta.randomizeParticipants(participants)
+        val randomizedPairings = SecretSanta.randomizePairings(participants)
         Then("each of participants has different person randomized")
-        randomizedParticipants.foreach(randomized => assert(randomized._1 != randomized._2))
+        randomizedPairings.foreach(pairing => assert(pairing.giver != pairing.receiver))
       }
     }
 
@@ -22,9 +22,9 @@ class SecretSantaTest extends FeatureSpec with GivenWhenThen with BeforeAndAfter
       val participants = List(Participant("K", "K"), Participant("G", "G"), Participant("A", "A"), Participant("F", "F"))
       for (1 <- 1 to 100000) {
         When("Randomizing secret santa")
-        val randomizedParticipants = SecretSanta.randomizeParticipants(participants)
+        val randomizedPairings = SecretSanta.randomizePairings(participants)
         Then("each of participants is randomized exactly once as giver")
-        val givers = randomizedParticipants.map(randomized => randomized._1)
+        val givers = randomizedPairings.map(pairing => pairing.giver)
         assert(givers.size == givers.distinct.size)
       }
     }
@@ -34,9 +34,9 @@ class SecretSantaTest extends FeatureSpec with GivenWhenThen with BeforeAndAfter
       val participants = List(Participant("K", "K"), Participant("G", "G"), Participant("A", "A"), Participant("F", "F"))
       for (1 <- 1 to 100000) {
         When("Randomizing secret santa")
-        val randomizedParticipants = SecretSanta.randomizeParticipants(participants)
+        val randomizedPairings = SecretSanta.randomizePairings(participants)
         Then("each of participants is randomized exactly once as receiver")
-        val receivers = randomizedParticipants.map(randomized => randomized._2)
+        val receivers = randomizedPairings.map(pairing => pairing.receiver)
         assert(receivers.size == receivers.distinct.size)
       }
     }
