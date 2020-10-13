@@ -13,7 +13,7 @@ object SecretSanta {
       givers match {
         case Nil | _ :: Nil => pairings
         case firstGiver :: secondGiver :: Nil =>
-          if (firstGiver != receivers.head && secondGiver != receivers(1))
+          if (firstGiver != receivers.head && secondGiver != receivers.tail.head)
             pairings :+ ParticipantsPairing(firstGiver, receivers.head) :+ ParticipantsPairing(secondGiver, receivers.tail.head)
           else pairings :+ ParticipantsPairing(firstGiver, receivers.tail.head) :+ ParticipantsPairing(secondGiver, receivers.head)
         case head :: tail =>
