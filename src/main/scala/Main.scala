@@ -13,7 +13,7 @@ object Main extends App {
     Participant("Participant3", "participant3@gmail.com"),
     Participant("Participant4", "participant4@gmail.com"))
 
-  SecretSanta.randomizePairings(participants)
+  SecretSanta(participants)
     .map(ComposedMail(_))
     .foreach(mail => mail.send(session))
 }
